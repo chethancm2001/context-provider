@@ -75,20 +75,4 @@ class DisplayablePath(object):
 
         return ''.join(reversed(parts))
     
-# 
-# paths = DisplayablePath.make_tree(Path('./'))
-# for path in paths:
-    # print(path.displayable())
 
-# With a criteria (skip hidden files)
-# def is_not_hidden(path):
-    # return not path.name.startswith(".")
-
-# paths = DisplayablePath.make_tree(Path('./'), criteria=is_not_hidden)
-# string = ""
-# for path in paths:
-    # string += path.displayable()
-    # string += "\n"
-    # 
-# 
-# print(string)
