@@ -1,4 +1,5 @@
 import time
+from typing import Any
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc 
 import time 
@@ -9,38 +10,50 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 
-
-
-options = uc.ChromeOptions() 
 load_dotenv()
 
-options.headless = False  
-openai_url = "https://chat.openai.com/auth/login"
+class ContextProvider:
+    #global variables
+    openai_url = "https://chat.openai.com/auth/login"
+
+    def __init__(self,Email,password):
+        # instance variables
+        self.email = Email
+        self.password = password
+        # settings up the driver
+        options = uc.ChromeOptions() 
+        options.headless = False 
+        self.driver = uc.Chrome(use_subprocess=True, options=options) 
+    
+    def login(self):
+        self.driver.get(self.openai_url) 
+        self.driver.maximize_window() 
+        time.sleep(3) 
+        log_button = self.driver.find_elements(By.XPATH,"//button")
+        log_button[0].click()
+        time.sleep(2)
+        input_email = self.driver.find_element(By.XPATH,'//input[@inputmode="email"]')
+        input_email.send_keys(email)
+        time.sleep(1)
+        submit_button = self.driver.find_element(By.XPATH,"//button[@type='submit']")
+        submit_button.click()
+        time.sleep(2)
+        password_input = self.driver.find_element(By.XPATH,"//input[@name='password']")
+        password_input.send_keys(password)
+        time.sleep(1)
+        final_submit = self.driver.find_elements(By.XPATH,"//button[text()='Continue']")
+        final_submit[1].click()
+        time.sleep(10)
+ 
+
 email = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
 
-driver = uc.Chrome(use_subprocess=True, options=options) 
+
+con = ContextProvider(email,password)
+con.login()
 
 
-def login(driver,email,password):
-    driver.get(openai_url) 
-    driver.maximize_window() 
-    time.sleep(3) 
-    log_button = driver.find_elements(By.XPATH,"//button")
-    log_button[0].click()
-    time.sleep(2)
-    input_email = driver.find_element(By.XPATH,'//input[@inputmode="email"]')
-    input_email.send_keys(email)
-    time.sleep(1)
-    submit_button = driver.find_element(By.XPATH,"//button[@type='submit']")
-    submit_button.click()
-    time.sleep(2)
-    password_input = driver.find_element(By.XPATH,"//input[@name='password']")
-    password_input.send_keys(password)
-    time.sleep(1)
-    final_submit = driver.find_elements(By.XPATH,"//button[text()='Continue']")
-    final_submit[1].click()
-    time.sleep(10)
 
 def createNewChat():
     escape = driver.find_elements(By.XPATH,"//button[@as='button']")
@@ -95,8 +108,7 @@ def sendContent():
               
 
 
-    time.sleep(100)   
-    driver.close()
+  
 
 
 
@@ -132,13 +144,8 @@ def senddata(data):
 
 
 
-login(driver,email,password)
-createNewChat()
-send_tree()
-sendContent()
 
-time.sleep(100)   
-driver.close()
+
 
 #//div/button[@data-testid='send-button']
 # 
