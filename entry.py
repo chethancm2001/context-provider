@@ -17,7 +17,7 @@ class ContextProvider:
     openai_url = "https://chat.openai.com/auth/login"
     
 
-    def __init__(self,Email,password,path="./"):
+    def __init__(self,Email,password,path="./upload"):
         # instance variables
         self.email = Email
         self.password = password
@@ -84,8 +84,8 @@ class ContextProvider:
 
     def sendContent(self):
         print("sending content")
-        # directory_path = self.path
-        for root, dirs, files in os.walk("./upload"):
+        directory_path = self.path
+        for root, dirs, files in os.walk(directory_path):
           
             dirs[:] = [d for d in dirs if not d.startswith('.')]
             
