@@ -98,9 +98,12 @@ class ContextProvider:
                         with open(file_path, 'r') as f:
             
                             file_contents = f.read()
-                            time.sleep(2)
+                            time.sleep(4)
                             textarea = self.driver.find_element(By.XPATH,"//textarea")
-                            textarea.send_keys(f"filename:{file} {file_contents}")
+                            textarea.send_keys(fr"filename:{file}")
+                            textarea.send_keys("\n")
+                            time.sleep(2)
+                            textarea.send_keys(file_contents)
                             time.sleep(2)
                             wait = WebDriverWait(self.driver, 10)
                             button = wait.until(EC.element_to_be_clickable((By.XPATH, "//div/button[@data-testid='send-button']")))
