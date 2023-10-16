@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 
-load_dotenv()
+
 
 class ContextProvider:
     #global variables
@@ -82,20 +82,10 @@ class ContextProvider:
         button.click()
         time.sleep(5)
 
-    def senddata(self,data):
-        textarea = self.driver.find_element(By.XPATH,"//textarea")
-        textarea.send_keys(data)
-        time.sleep(4)
-        wait = WebDriverWait(self.driver, 10)
-        button = wait.until(EC.element_to_be_clickable((By.XPATH, "//div/button[@data-testid='send-button']")))
-        button.click()
-        time.sleep(4)
-
-    
     def sendContent(self):
         print("sending content")
         # directory_path = self.path
-        for root, dirs, files in os.walk("./"):
+        for root, dirs, files in os.walk("./upload"):
           
             dirs[:] = [d for d in dirs if not d.startswith('.')]
             
@@ -108,12 +98,13 @@ class ContextProvider:
                         with open(file_path, 'r') as f:
             
                             file_contents = f.read()
-                            print(f"filename:{file}" + "\n"+"\n" +file_contents)
-                            print("\n")
+                            time.sleep(2)
                             textarea = self.driver.find_element(By.XPATH,"//textarea")
                             textarea.send_keys(f"filename:{file} {file_contents}")
+                            time.sleep(2)
                             wait = WebDriverWait(self.driver, 10)
                             button = wait.until(EC.element_to_be_clickable((By.XPATH, "//div/button[@data-testid='send-button']")))
+                            time.sleep(2)
                             button.click()
                             time.sleep(4)
                         
@@ -124,7 +115,7 @@ class ContextProvider:
             # You can read the contents of the file here
           
           
-          
+load_dotenv()         
 email = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
 
@@ -134,37 +125,4 @@ con.login()
 con.create_new_chat()
 con.context_tree()
 con.sendContent()
-
-
-
-
-
-  
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#//div/button[@data-testid='send-button']
-# 
-
-
 
