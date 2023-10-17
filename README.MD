@@ -15,6 +15,22 @@ PASSWORD="YOUR CHAT GPT PASSWORD"
 ```bash
 pip install -r requirements.txt
 ```
-4. create the upload folder with as the project 
-5. run entry.py file
+4. create the instance 
+```py
+from entry import ContextProvider
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  
+       
+email = os.getenv("EMAIL")
+password = os.getenv("PASSWORD")
+path = "your path"
+
+con = ContextProvider(email,password,path)
+con.login()
+con.create_new_chat()
+con.context_tree()
+con.sendContent()
+```
+5. run and enjoy 
