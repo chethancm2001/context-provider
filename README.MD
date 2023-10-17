@@ -12,6 +12,9 @@ EMAIL="YOUR CHAT GPT EMAIL"
 PASSWORD="YOUR CHAT GPT PASSWORD"
 ```
 3. install the requirements
+```bash
+pip install -r requirements.txt
+```
 4. create the upload folder with as the project 
 5. run entry.py file
 
