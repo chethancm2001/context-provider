@@ -1,5 +1,4 @@
 import time
-from typing import Any
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc 
 import time 
