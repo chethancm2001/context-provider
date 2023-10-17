@@ -10,8 +10,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 
-
-
 class ContextProvider:
     #global variables
     openai_url = "https://chat.openai.com/auth/login"
@@ -114,8 +112,6 @@ class ContextProvider:
                     except:
                         print(f"error in {file}")
                         
-
-            # You can read the contents of the file here
           
           
 load_dotenv()         
