@@ -33,13 +33,13 @@ class ContextProvider:
         log_button[0].click()
         time.sleep(2)
         input_email = self.driver.find_element(By.XPATH,'//input[@inputmode="email"]')
-        input_email.send_keys(email)
+        input_email.send_keys(self.email)
         time.sleep(1)
         submit_button = self.driver.find_element(By.XPATH,"//button[@type='submit']")
         submit_button.click()
         time.sleep(2)
         password_input = self.driver.find_element(By.XPATH,"//input[@name='password']")
-        password_input.send_keys(password)
+        password_input.send_keys(self.password)
         time.sleep(1)
         final_submit = self.driver.find_elements(By.XPATH,"//button[text()='Continue']")
         final_submit[1].click()
@@ -113,14 +113,5 @@ class ContextProvider:
                         
           
           
-load_dotenv()         
-email = os.getenv("EMAIL")
-password = os.getenv("PASSWORD")
 
-
-con = ContextProvider(email,password)
-con.login()
-con.create_new_chat()
-con.context_tree()
-con.sendContent()
 
